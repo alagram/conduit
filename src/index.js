@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
+import { promiseMiddleware } from './middleware'
 
 const defaultState = {
   appName: 'conduit',
