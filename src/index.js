@@ -14,7 +14,7 @@ const reducer = function(state = defaultState, action) {
   return state;
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(promiseMiddleware));
 
 
 ReactDOM.render(
