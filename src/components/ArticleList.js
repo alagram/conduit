@@ -1,4 +1,5 @@
 import React from 'react';
+import ArticlePreview from './ArticlePreview';
 
 const ArticleList = props => {
   if (!props.articles) {
@@ -17,13 +18,9 @@ const ArticleList = props => {
 
   return (
     <div>
-      {
-        props.articles.map((article) => {
-          return (
-            <h2 key={article.slug}>{article.title}</h2>
-          )
-        })
-      }
+      {props.articles.map((article) => (
+        <ArticlePreview article={article} key={article.slug} />
+      ))}
     </div>
   )
 }
