@@ -25,8 +25,8 @@ const MainView = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  articles: state.articles
+const mapStateToProps = ({ home }) => ({
+  articles: home.articles
 })
 
 export default connect(mapStateToProps, () => ({}))(MainView);
