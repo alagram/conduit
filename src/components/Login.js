@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import agent from '../agent';
+import ListErrors from './ListErrors';
 
 class Login extends Component {
+
+  changeEmail = (event) => {
+    this.props.onChangeEmail(event.target.value);
+  };
+
+  changePassword = (event) => {
+    this.props.onChangePassword(event.target.value);
+  };
+
+  submitForm = (email, password) => (event) => {
+    event.preventDefault();
+    this.props.onSubmit(email, password);
+  };
+
   render() {
+    const { email, password } = this.props;
+
     return (
       <div className="auth-page">
         <div className="container page">
@@ -16,25 +34,32 @@ class Login extends Component {
                 </a>
               </p>
 
-              <form>
+              <ListErrors errors={this.props.errors} />
+
+              <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
                       type="email"
-                      placeholder="email" />
+                      placeholder="Email"
+                      value={email}
+                      onChange={this.changeEmail} />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
                       type="password"
-                      placeholder="Password" />
+                      placeholder="Password"
+                      value={password}
+                      onChange={this.changePassword} />
                   </fieldset>
 
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
-                    type="submit" >
+                    type="submit"
+                    disabled={this.props.inProgress} >
                     Sign In
                   </button>
 
@@ -50,4 +75,15 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login);
+const mapStateToProps = state => ({ ...state.auth });
+
+const mapDispatchToProps = dispatch => ({
+  onChangeEmail: (value) =>
+    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'email', value }),
+  onChangePassword: (value) =>
+    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
+  onSubmit: (email, password) =>
+    dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
