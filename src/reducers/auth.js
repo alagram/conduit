@@ -1,3 +1,24 @@
 export default (state = {}, action) => {
-  return state;
+  switch (action.type) {
+    case 'LOGIN' :
+      return {
+        ...state,
+        inProgress: false,
+        errors: action.error ? action.payload.errors : null
+      };
+    case 'ASYNC_START' :
+      if (action.subtype === 'LOGIN' || action.subtype === 'REGISTER') {
+        return {
+          ...state,
+          inProgress: true
+        };
+      }
+    case 'UPDATE_FIELD_AUTH' :
+      return {
+        ...state,
+        [action.key]: action.value
+      };
+    default :
+      return state;
+  }
 };
