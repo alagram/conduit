@@ -4,7 +4,7 @@ import Banner from './Banner';
 import MainView from './MainView';
 import agent from '../../agent';
 
-const Promise = global.Promise;
+// const Promise = global.Promise;
 
 class Home extends Component {
 
