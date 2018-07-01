@@ -10,7 +10,6 @@ import { push } from 'react-router-redux';
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log('Next Props: ', nextProps)
     if (nextProps.redirectTo) {
       store.dispatch(push(nextProps.redirectTo));
       this.props.onRedirect();
