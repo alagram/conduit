@@ -13,6 +13,7 @@ export default (state = {}, action) => {
           inProgress: true
         };
       }
+      break;
     case 'UPDATE_FIELD_AUTH' :
       return {
         ...state,
@@ -21,4 +22,6 @@ export default (state = {}, action) => {
     default :
       return state;
   }
+
+  return state;
 };
