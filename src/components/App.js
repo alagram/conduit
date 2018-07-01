@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Home from './Home';
+import Login from './Login';
 import agent from '../agent';
+import { store } from '../store';
+import { push } from 'react-router-redux';
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps: ', nextProps)
+    console.log('Next Props: ', nextProps)
     if (nextProps.redirectTo) {
-
-      this.props.history.push(nextProps.redirectTo);
+      store.dispatch(push(nextProps.redirectTo));
       this.props.onRedirect();
     }
   }
@@ -27,7 +30,10 @@ class App extends Component {
     return (
       <div>
         <Header appName={this.props.appName} />
-        <Home />
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/login" component={Login} />
+        </Switch>
       </div>
     );
   }

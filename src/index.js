@@ -1,20 +1,21 @@
 import { Provider } from 'react-redux';
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import store from './store'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { store, history} from './store';
+
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+
 import App from './components/App';
-import Login from './components/Login'
 
 
-ReactDOM.render(
+ReactDOM.render((
   <Provider store={store}>
-    <Router>
-      <Fragment>
-        <Route path="/" exact component={App} />
-        <Route path="/login" component={Login} />
-      </Fragment>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
-);
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route path="/" component={App} />
+      </Switch>
+    </ConnectedRouter>
+  </Provider>
+
+), document.getElementById('root'));
