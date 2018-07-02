@@ -4,8 +4,7 @@ import { Link } from  'react-router-dom';
 import agent from '../agent';
 import ListErrors from './ListErrors';
 
-class Login extends Component {
-
+class Register extends Component {
   changeEmail = (event) => {
     this.props.onChangeEmail(event.target.value);
   };
@@ -14,13 +13,17 @@ class Login extends Component {
     this.props.onChangePassword(event.target.value);
   };
 
-  submitForm = (email, password) => (event) => {
-    event.preventDefault();
-    this.props.onSubmit(email, password);
+  changeUsername = (event) => {
+    this.props.onChangeUsername(event.target.value);
   };
 
-  render() {
-    const { email, password } = this.props;
+  submitForm = (username, email, password) => (event) => {
+    event.preventDefault();
+    this.props.onSubmit(username, email, password);
+  };
+
+  render () {
+    const { email, username, password, inProgress } = this.props;
 
     return (
       <div className="auth-page">
@@ -28,17 +31,27 @@ class Login extends Component {
           <div className="row">
 
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
+              <h1 className="text-xs-center">Sign Up</h1>
               <p className="text-xs-center">
-                <Link to="register">
-                  Need an account?
+                <Link to="login">
+                  Have an account?
                 </Link>
               </p>
 
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={this.submitForm(email, password)}>
+              <form onSubmit={this.submitForm(username, email, password)}>
                 <fieldset>
+
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="text"
+                      placeholder="Username"
+                      value={username}
+                      onChange={this.changeUsername} />
+                  </fieldset>
+
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
@@ -60,15 +73,13 @@ class Login extends Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={this.props.inProgress} >
-                    Sign In
+                    disabled={inProgress} >
+                    Register
                   </button>
 
                 </fieldset>
               </form>
-
             </div>
-
           </div>
         </div>
       </div>
@@ -83,8 +94,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'email', value }),
   onChangePassword: (value) =>
     dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) })
+  onChangeUsername: (value) =>
+    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'username', value }),
+  onSubmit: (username, email, password) => {
+    const payload = agent.Auth.register(username, email, password)
+
+    dispatch({ type: 'REGISTER', payload })
+  }
+
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
