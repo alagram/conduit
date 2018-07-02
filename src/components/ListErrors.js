@@ -9,7 +9,7 @@ class ListErrors extends Component {
         <ul className="error-messages">
           {Object.keys(errors).map((key)=> (
             <li key={key}>
-              {key} {errors[key]}
+              {key} {errors[key].join(", ")}
             </li>
           ))}
         </ul>
