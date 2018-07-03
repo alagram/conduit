@@ -6,6 +6,10 @@ import ListErrors from './ListErrors';
 
 class Login extends Component {
 
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   changeEmail = (event) => {
     this.props.onChangeEmail(event.target.value);
   };
@@ -84,7 +88,9 @@ const mapDispatchToProps = dispatch => ({
   onChangePassword: (value) =>
     dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
   onSubmit: (email, password) =>
-    dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) })
+    dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) }),
+  onUnload: () =>
+    dispatch({ type: 'LOGIN_PAGE_UNLOADED' })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
