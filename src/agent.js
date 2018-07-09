@@ -17,7 +17,10 @@ const requests = {
 };
 
 const Articles = {
-  all: page => requests.get(`/articles?limit=10`)
+  all: page =>
+    requests.get(`/articles?limit=10`),
+  get: slug =>
+    requests.get(`/articles/${slug}`)
 };
 
 const Auth = {
@@ -31,6 +34,11 @@ const Auth = {
     requests.patch('/user', { user })
 };
 
+const Comments = {
+  forArticle: slug =>
+    requests.get(`/articles/${slug}/comments`)
+}
+
 let token = null;
 let tokenPlugin = req => {
   if (token) {
@@ -41,5 +49,6 @@ let tokenPlugin = req => {
 export default {
   Articles,
   Auth,
+  Comments,
   setToken: _token => { token = _token }
 };
