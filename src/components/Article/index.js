@@ -7,8 +7,8 @@ import marked from 'marked';
 class Article extends Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.Article.get(this.props.params.id),
-      agent.Comments.forArticle(this.props.params.id)
+      agent.Articles.get(this.props.match.params.id),
+      agent.Comments.forArticle(this.props.match.params.id)
     ]))
   }
 
@@ -21,19 +21,23 @@ class Article extends Component {
       return null;
     }
 
+    const { currentUser, article } = this.props;
     const markup = { __html: marked(this.props.article.body) };
-    const canModify = this.props.currentUser &&
-                      this.currentUser.username === this.props.article.author.username;
+    const canModify = currentUser &&
+                      currentUser.username === article.author.username;
 
     return (
       <div className="article-page">
         <div className="banner">
           <div className="container">
             <h1>{this.props.article.title}</h1>
-            <ArticleMeta
+            {/*
+              <ArticleMeta
               article={this.props.article}
               canModify={canModify}
             />
+            */}
+
           </div>
         </div>
 
@@ -56,11 +60,13 @@ class Article extends Component {
         <hr />
 
         <div className="row">
+          {/*
           <CommentContainer
             comments={this.props.comments || []}
             errors={this.props.commentErrors}
             slug={this.props.params.id}
             currentUser={this.props.currentUser} />
+          */}
         </div>
       </div>
     );
@@ -69,7 +75,7 @@ class Article extends Component {
 
 const mapStateToProps = state => ({
   ...state.article,
-  currentUser: state,common.currentUser
+  currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -79,4 +85,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'ARTICLE_PAGE_UNLOADED' })
 })
 
-export default connect(mapDispatchToProps, mapDispatchToProps)(Article);
+export default connect(mapStateToProps, mapDispatchToProps)(Article);

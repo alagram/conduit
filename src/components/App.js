@@ -6,6 +6,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
+import Article from './Article';
 import agent from '../agent';
 import { store } from '../store';
 import { push } from 'react-router-redux';
@@ -38,6 +39,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/settings" component={Settings} />
+          <Route path="/article/:id" component={Article} />
         </Switch>
       </div>
     );
