@@ -6,7 +6,7 @@ const ArticleMeta = ({ article, canModify }) => {
   return (
     <div className="article-meta">
       <Link to={`@${article.author.username}`}>
-        <img src={article.author.image} />
+        <img src={article.author.image} alt={article.author.username}/>
       </Link>
 
       <div className="info">
