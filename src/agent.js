@@ -8,6 +8,8 @@ const API_ROOT = 'http://localhost:3000/api';
 const responseBody = res => res.body;
 
 const requests = {
+  del: url =>
+    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   get: url =>
     superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
@@ -17,7 +19,12 @@ const requests = {
 };
 
 const Articles = {
-  all: page => requests.get(`/articles?limit=10`)
+  all: page =>
+    requests.get(`/articles?limit=10`),
+  del: slug =>
+    requests.del(`/articles/${slug}`),
+  get: slug =>
+    requests.get(`/articles/${slug}`)
 };
 
 const Auth = {
@@ -31,6 +38,15 @@ const Auth = {
     requests.patch('/user', { user })
 };
 
+const Comments = {
+  create: (slug, comment) =>
+    requests.post(`/articles/${slug}/comments`, { comment }),
+  delete: (slug, commentId) =>
+    requests.del(`/articles/${slug}/comments/${commentId}`),
+  forArticle: slug =>
+    requests.get(`/articles/${slug}/comments`)
+}
+
 let token = null;
 let tokenPlugin = req => {
   if (token) {
@@ -41,5 +57,6 @@ let tokenPlugin = req => {
 export default {
   Articles,
   Auth,
+  Comments,
   setToken: _token => { token = _token }
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ArticlePreview = ({ article }) => {
   return (
@@ -24,7 +25,7 @@ const ArticlePreview = ({ article }) => {
         </div>
       </div>
 
-      <a to={`article/${article.slug}`} className="preview-link">
+      <Link to={`article/${article.slug}`} className="preview-link">
         <h1>{article.title}</h1>
         <p>{article.description}</p>
         <span>Read more...</span>
@@ -35,7 +36,7 @@ const ArticlePreview = ({ article }) => {
             </li>
           ))}
         </ul>
-      </a>
+      </Link>
     </div>
   )
 }
