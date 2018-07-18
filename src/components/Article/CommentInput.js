@@ -8,8 +8,10 @@ class CommentInput extends Component {
   }
 
   setBody = (env) => {
+    const body = env.target.value
+
     this.setState(() => ({
-      body: env.target.value
+      body
     }))
   }
 
