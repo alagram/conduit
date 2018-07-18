@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import marked from 'marked';
+import ArticleMeta from './ArticleMeta'
 
 class Article extends Component {
   componentWillMount() {
@@ -31,12 +32,8 @@ class Article extends Component {
         <div className="banner">
           <div className="container">
             <h1>{this.props.article.title}</h1>
-            {/*
-              <ArticleMeta
-              article={this.props.article}
-              canModify={canModify}
-            />
-            */}
+
+            <ArticleMeta article={article} canModify={canModify} />
 
           </div>
         </div>

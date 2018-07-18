@@ -1,7 +1,6 @@
 export default (state = {}, action) => {
   switch (action.type) {
     case 'ARTICLE_PAGE_LOADED' :
-      console.log('payload: ', action.payload)
       return {
         ...state,
         article: action.payload[0].article,

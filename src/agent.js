@@ -8,6 +8,8 @@ const API_ROOT = 'http://localhost:3000/api';
 const responseBody = res => res.body;
 
 const requests = {
+  del: url =>
+    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   get: url =>
     superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
@@ -19,6 +21,8 @@ const requests = {
 const Articles = {
   all: page =>
     requests.get(`/articles?limit=10`),
+  del: slug =>
+    requests.del(`/articles/${slug}`),
   get: slug =>
     requests.get(`/articles/${slug}`)
 };
