@@ -10,7 +10,7 @@ const ArticleMeta = ({ article, canModify }) => {
       </Link>
 
       <div className="info">
-        <Link to={`@${article.author.username}`} className="author">
+        <Link to={`/@${article.author.username}`} className="author">
           {article.author.username}
         </Link>
         <span className="date">
