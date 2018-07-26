@@ -30,7 +30,7 @@ class Profile extends Component {
         <li className="nav-item">
           <Link
             className="nav-link"
-            to={`@{this.props.profile.username}/favorites`}>
+            to={`@${this.props.profile.username}/favorites`}>
             Favorite Articles
             </Link>
         </li>
@@ -54,7 +54,7 @@ class Profile extends Component {
             <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
 
-              <img src={profile.image} className="user-img" />
+              <img src={profile.image} className="user-img" alt={profile.username} />
               <h4>{profile.username}</h4>
               <p>{profile.bio}</p>
 
@@ -146,7 +146,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({ type: 'FOLLOW_USER', payload: agent.Profile.follow(username) }),
+  onFollow: username => dispatch({
+    type: 'FOLLOW_USER',
+    payload: agent.Profile.follow(username) }),
   onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
   onUnfollow: username => dispatch({
     type: 'UNFOLLOW_USER',
@@ -155,5 +157,5 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' })
 });
 
-export default connect(mapDispatchToProps, mapDispatchToProps)(Profile);
-export { Profile as Profile, mapDispatchToProps as mapDispatchToProps }; // For Inheritance
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export { Profile, mapDispatchToProps }; // For Inheritance
