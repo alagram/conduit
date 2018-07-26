@@ -47,7 +47,16 @@ const Comments = {
     requests.del(`/articles/${slug}/comments/${commentId}`),
   forArticle: slug =>
     requests.get(`/articles/${slug}/comments`)
-}
+};
+
+const Profile = {
+  follow: username =>
+    requests.post(`/profiles/${username}/follow`),
+  get: username =>
+    requests.get(`/profiles/${username}`),
+  unfollow: username =>
+    requests.del(`/profiles/${username}/follow`)
+};
 
 let token = null;
 let tokenPlugin = req => {
@@ -60,5 +69,6 @@ export default {
   Articles,
   Auth,
   Comments,
+  Profile,
   setToken: _token => { token = _token }
 };
