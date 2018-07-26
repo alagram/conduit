@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import auth from './reducers/auth';
 import common from './reducers/common';
 import home from './reducers/home';
+import profile from './reducers/profile';
 import settings from './reducers/settings';
 import article from './reducers/article';
 import articleList from './reducers/articleList';
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   auth,
   common,
   home,
+  profile,
   settings
 });
 
