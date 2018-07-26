@@ -91,6 +91,19 @@ class Profile extends Component {
   }
 }
 
+const EditProfileSettings = props => {
+  if (props.isUser) {
+    return (
+      <Link
+        to="settings"
+        className="btn btn-sm btn-outline-secondary action-btn">
+        <i className="ion-gear-a"></i> Edit Profile Settings
+      </Link>
+    );
+  }
+
+  return null;
+}
 const mapStateToProps = state => ({
   ...state.articleList,
   currentUser: state.common.currentUser,
