@@ -6,6 +6,7 @@ import common from './reducers/common';
 import home from './reducers/home';
 import settings from './reducers/settings';
 import article from './reducers/article';
+import articleList from './reducers/articleList';
 
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -21,6 +22,7 @@ const getMiddleware = () => {
 
 const reducer = combineReducers({
   article,
+  articleList,
   auth,
   common,
   home,
