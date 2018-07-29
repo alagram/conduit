@@ -22,7 +22,7 @@ class Profile extends Component {
         <li className="nav-item">
           <Link
             className="nav-link active"
-            to={`@${this.props.profile.username}`}>
+            to={`/@${this.props.profile.username}`}>
             My Articles
            </Link>
         </li>
@@ -30,7 +30,7 @@ class Profile extends Component {
         <li className="nav-item">
           <Link
             className="nav-link"
-            to={`@${this.props.profile.username}/favorites`}>
+            to={`/@${this.props.profile.username}/favorites`}>
             Favorite Articles
             </Link>
         </li>
@@ -158,4 +158,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-export { Profile, mapDispatchToProps }; // For Inheritance
+export { Profile, mapStateToProps }; // For Inheritance
