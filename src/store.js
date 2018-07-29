@@ -4,8 +4,10 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import auth from './reducers/auth';
 import common from './reducers/common';
 import home from './reducers/home';
+import profile from './reducers/profile';
 import settings from './reducers/settings';
 import article from './reducers/article';
+import articleList from './reducers/articleList';
 
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -21,9 +23,11 @@ const getMiddleware = () => {
 
 const reducer = combineReducers({
   article,
+  articleList,
   auth,
   common,
   home,
+  profile,
   settings
 });
 
