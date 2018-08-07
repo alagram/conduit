@@ -23,6 +23,8 @@ const Articles = {
     requests.get(`/articles?limit=10`),
   byAuthor: (author, page) =>
     requests.get(`/articles?author=${encodeURIComponent(author)}&limit=5`),
+  byTag: (tag) =>
+    requests.get(`/articles?tags=${encodeURIComponent(tag)}&limit=10`),
   del: slug =>
     requests.del(`/articles/${slug}`),
   favoritedBy: (author, page) =>
@@ -62,6 +64,10 @@ const Profile = {
     requests.del(`/profiles/${username}/follow`)
 };
 
+const Tags = {
+  getAll: () => requests.get('/tags')
+};
+
 let token = null;
 let tokenPlugin = req => {
   if (token) {
@@ -74,5 +80,6 @@ export default {
   Auth,
   Comments,
   Profile,
+  Tags,
   setToken: _token => { token = _token }
 };

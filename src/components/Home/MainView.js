@@ -3,6 +3,20 @@ import { connect } from 'react-redux';
 import ArticleList from '../ArticleList';
 import agent from '../../agent';
 
+const TagFilterTab = props => {
+  if (!props.tag) {
+    return null;
+  }
+
+  return (
+    <li className="nav-item">
+      <a href="" className="nav-link active">
+        <i className="ion-pound"></i> {props.tag}
+      </a>
+    </li>
+  )
+}
+
 const YourFeedTab = props => {
   if (props.token) {
     const clickHandler = env => {
@@ -54,6 +68,8 @@ const MainView = props => {
             onTabClick={props.onTabClick} />
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+
+          <TagFilterTab tag={props.tag} />
 
         </ul>
       </div>
