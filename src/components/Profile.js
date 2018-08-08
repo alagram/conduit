@@ -38,6 +38,11 @@ class Profile extends Component {
     )
   }
 
+  onSetPage(page) {
+    const promise = agent.Articles.byAuthor(this.props.profile.username, page);
+    this.props.onSetPage(page, promise);
+  }
+
   render() {
     const profile = this.props.profile;
     if (!profile) {
@@ -45,6 +50,8 @@ class Profile extends Component {
     }
 
     const isUser = this.props.currentUser && this.props.profile.username === this.props.currentUser.username;
+
+    const onSetPage = page => this.onSetPage(page)
 
     return (
       <div className="profile-page">
@@ -80,7 +87,9 @@ class Profile extends Component {
 
               <ArticleList
                 articles={this.props.articles}
-              />
+                articleCount={this.props.articleCount}
+                currentPage={this.props.currentPage}
+                onSetPage={onSetPage}  />
             </div>
 
           </div>
@@ -150,6 +159,7 @@ const mapDispatchToProps = dispatch => ({
     type: 'FOLLOW_USER',
     payload: agent.Profile.follow(username) }),
   onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
+  onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
   onUnfollow: username => dispatch({
     type: 'UNFOLLOW_USER',
     payload: agent.Profile.unfollow(username)
