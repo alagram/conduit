@@ -87,7 +87,7 @@ class Profile extends Component {
 
               <ArticleList
                 articles={this.props.articles}
-                articleCount={this.props.articleCount}
+                articlesCount={this.props.articlesCount}
                 currentPage={this.props.currentPage}
                 onSetPage={onSetPage}  />
             </div>
