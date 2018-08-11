@@ -16,6 +16,9 @@ export default (state = defaultState, action) => {
       return { ...state, redirectTo: null };
     case 'LOGOUT':
       return { ...state, redirectTo: '/', token: null, currentUser: null };
+    case 'ARTICLE_SUBMITTED' :
+      const redirectUri = `article/${action.payload.article.slug}`;
+      return { ...state,redirectTo: redirectUri };
     case 'SETTINGS_SAVED' :
       return {
         ...state,

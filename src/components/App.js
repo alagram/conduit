@@ -9,6 +9,7 @@ import Settings from './Settings';
 import Article from './Article';
 import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
+import Editor from './Editor';
 import agent from '../agent';
 import { store } from '../store';
 import { push } from 'react-router-redux';
@@ -41,6 +42,8 @@ class App extends Component {
             <Route exact path="/" component={Home}/>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/editor/:slug" component={Editor} />
+            <Route path="/editor/" component={Editor} />
             <Route path="/settings" component={Settings} />
             <Route path="/article/:id" component={Article} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
