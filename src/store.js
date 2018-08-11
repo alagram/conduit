@@ -8,6 +8,7 @@ import profile from './reducers/profile';
 import settings from './reducers/settings';
 import article from './reducers/article';
 import articleList from './reducers/articleList';
+import editor from './reducers/editor';
 
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -28,7 +29,8 @@ const reducer = combineReducers({
   common,
   home,
   profile,
-  settings
+  settings,
+  editor
 });
 
 
