@@ -31,6 +31,10 @@ const Articles = {
     requests.get(`/articles?tags=${encode(tag)}&${limit(10, page)}`),
   del: slug =>
     requests.del(`/articles/${slug}`),
+  favorite: slug =>
+    requests.post(`/articles/${slug}/favorite`),
+  unfavorite: slug =>
+    requests.del(`/articles/${slug}/favorite`),
   favoritedBy: (author, page) =>
     requests.get(`/articles?favorited=${encode(author)}&${limit(10, page)}`),
   feed: page =>
