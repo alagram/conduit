@@ -3,6 +3,13 @@ import ArticleList from './ArticleList';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import {
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+  PROFILE_PAGE_LOADED,
+  PROFILE_PAGE_UNLOADED,
+  SET_PAGE
+} from '../constants/actionTypes';
 
 class Profile extends Component {
   componentWillMount() {
@@ -156,15 +163,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onFollow: username => dispatch({
-    type: 'FOLLOW_USER',
+    type: FOLLOW_USER,
     payload: agent.Profile.follow(username) }),
-  onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
-  onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
+  onLoad: payload => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
+  onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
   onUnfollow: username => dispatch({
-    type: 'UNFOLLOW_USER',
+    type: UNFOLLOW_USER,
     payload: agent.Profile.unfollow(username)
   }),
-  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' })
+  onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import Header from './Header';
 import Home from './Home';
 import Login from './Login';
@@ -71,9 +72,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
-    dispatch({ type: 'APP_LOAD', payload, token }),
+    dispatch({ type: APP_LOAD, payload, token }),
   onRedirect: () =>
-    dispatch({ type: 'REDIRECT' })
+    dispatch({ type: REDIRECT })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

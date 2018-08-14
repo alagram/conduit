@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from  'react-router-dom';
 import agent from '../agent';
 import ListErrors from './ListErrors';
+import {
+  UPDATE_FIELD_AUTH,
+  REGISTER,
+} from '../constants/actionTypes';
 
 class Register extends Component {
   changeEmail = (event) => {
@@ -91,15 +95,15 @@ const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
   onChangeEmail: (value) =>
-    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'email', value }),
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
   onChangePassword: (value) =>
-    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onChangeUsername: (value) =>
-    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'username', value }),
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password)
 
-    dispatch({ type: 'REGISTER', payload })
+    dispatch({ type: REGISTER, payload })
   }
 
 })
