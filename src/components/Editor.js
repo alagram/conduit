@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import ListErrors from './ListErrors';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import {
+  ADD_TAG,
+  EDITOR_PAGE_LOADED,
+  REMOVE_TAG,
+  ARTICLE_SUBMITTED,
+  EDITOR_PAGE_UNLOADED,
+  UPDATE_FIELD_EDITOR
+} from '../constants/actionTypes';
 
 class Editor extends Component {
   updateFieldEvent = (key) => (env) => this.props.onUpdateField(key, env.target.value);
@@ -161,17 +169,17 @@ const mapStateToProps = state => ({
 
  const mapDispatchToProps = dispatch => ({
   onAddTag: () =>
-    dispatch({ type: 'ADD_TAG' }),
+    dispatch({ type: ADD_TAG }),
   onLoad: payload =>
-    dispatch({ type: 'EDITOR_PAGE_LOADED', payload }),
+    dispatch({ type: EDITOR_PAGE_LOADED, payload }),
   onRemoveTag: tag =>
-    dispatch({ type: 'REMOVE_TAG', tag }),
+    dispatch({ type: REMOVE_TAG, tag }),
   onSubmit: payload =>
-    dispatch({ type: 'ARTICLE_SUBMITTED', payload }),
+    dispatch({ type: ARTICLE_SUBMITTED, payload }),
   onUnload: () =>
-    dispatch({ type: 'EDITOR_PAGE_UNLOADED' }),
+    dispatch({ type: EDITOR_PAGE_UNLOADED }),
   onUpdateField: (key, value) =>
-    dispatch({ type: 'UPDATE_FIELD_EDITOR', key, value })
+    dispatch({ type: UPDATE_FIELD_EDITOR, key, value })
  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

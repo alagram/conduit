@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import marked from 'marked';
 import ArticleMeta from './ArticleMeta';
 import CommentContainer from './CommentContainer';
+import { ARTICLE_PAGE_LOADED, ARTICLE_PAGE_UNLOADED } from '../../constants/actionTypes';
 
 class Article extends Component {
   componentWillMount() {
@@ -77,9 +78,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload =>
-    dispatch({ type: 'ARTICLE_PAGE_LOADED', payload }),
+    dispatch({ type: ARTICLE_PAGE_LOADED, payload }),
   onUnload: () =>
-    dispatch({ type: 'ARTICLE_PAGE_UNLOADED' })
+    dispatch({ type: ARTICLE_PAGE_UNLOADED })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

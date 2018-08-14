@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListErrors from './ListErrors';
 import agent from '../agent';
+import {
+  SETTINGS_SAVED,
+  LOGOUT
+} from '../constants/actionTypes';
 
 class SettingsForm extends Component {
   state = {
@@ -159,9 +163,9 @@ const mapStateToProps = state =>  ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onClickLogout: () => dispatch({ type: 'LOGOUT' }),
+  onClickLogout: () => dispatch({ type: LOGOUT }),
   onSubmitForm: user =>
-    dispatch({ type: 'SETTINGS_SAVED', payload: agent.Auth.save(user) })
+    dispatch({ type: SETTINGS_SAVED, payload: agent.Auth.save(user) })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
