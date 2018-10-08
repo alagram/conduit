@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
-import ArticleList from './ArticleList';
-import { Link } from 'react-router-dom';
-import agent from '../agent';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import ArticleList from "./ArticleList";
+import { Link } from "react-router-dom";
+import agent from "../agent";
+import { connect } from "react-redux";
 import {
   FOLLOW_USER,
   UNFOLLOW_USER,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
   SET_PAGE
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
 class Profile extends Component {
   componentWillMount() {
-    this.props.onLoad(Promise.all([
-      agent.Profile.get(this.props.match.params.username),
-      agent.Articles.byAuthor(this.props.match.params.username)
-    ]));
+    this.props.onLoad(
+      Promise.all([
+        agent.Profile.get(this.props.match.params.username),
+        agent.Articles.byAuthor(this.props.match.params.username)
+      ])
+    );
   }
 
   componentWillUnmount() {
@@ -29,20 +31,22 @@ class Profile extends Component {
         <li className="nav-item">
           <Link
             className="nav-link active"
-            to={`/@${this.props.profile.username}`}>
+            to={`/@${this.props.profile.username}`}
+          >
             My Articles
-           </Link>
+          </Link>
         </li>
 
         <li className="nav-item">
           <Link
             className="nav-link"
-            to={`/@${this.props.profile.username}/favorites`}>
+            to={`/@${this.props.profile.username}/favorites`}
+          >
             Favorite Articles
-            </Link>
+          </Link>
         </li>
       </ul>
-    )
+    );
   }
 
   onSetPage(page) {
@@ -56,54 +60,54 @@ class Profile extends Component {
       return null;
     }
 
-    const isUser = this.props.currentUser && this.props.profile.username === this.props.currentUser.username;
+    const isUser =
+      this.props.currentUser &&
+      this.props.profile.username === this.props.currentUser.username;
 
-    const onSetPage = page => this.onSetPage(page)
+    const onSetPage = page => this.onSetPage(page);
 
     return (
       <div className="profile-page">
-
         <div className="user-info">
           <div className="container">
             <div className="row">
-            <div className="col-xs-12 col-md-10 offset-md-1">
+              <div className="col-xs-12 col-md-10 offset-md-1">
+                <img
+                  src={profile.image}
+                  className="user-img"
+                  alt={profile.username}
+                />
+                <h4>{profile.username}</h4>
+                <p>{profile.bio}</p>
 
-              <img src={profile.image} className="user-img" alt={profile.username} />
-              <h4>{profile.username}</h4>
-              <p>{profile.bio}</p>
-
-              <EditProfileSettings isUser={isUser} />
-              <FollowUserButton
-                isUser={isUser}
-                user={profile}
-                follow={this.props.onFollow}
-                unfollow={this.props.onUnfollow}
-              />
-            </div>
+                <EditProfileSettings isUser={isUser} />
+                <FollowUserButton
+                  isUser={isUser}
+                  user={profile}
+                  follow={this.props.onFollow}
+                  unfollow={this.props.onUnfollow}
+                />
+              </div>
             </div>
           </div>
         </div>
 
         <div className="container">
           <div className="row">
-
             <div className="col-xs-12 col-md-10 offset-md-1">
-              <div className="articles-toggle">
-                {this.renderTabs()}
-              </div>
+              <div className="articles-toggle">{this.renderTabs()}</div>
 
               <ArticleList
                 articles={this.props.articles}
                 articlesCount={this.props.articlesCount}
                 currentPage={this.props.currentPage}
-                onSetPage={onSetPage}  />
+                onSetPage={onSetPage}
+              />
             </div>
-
           </div>
         </div>
-
       </div>
-    )
+    );
   }
 }
 
@@ -112,48 +116,47 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="settings"
-        className="btn btn-sm btn-outline-secondary action-btn">
-        <i className="ion-gear-a"></i> Edit Profile Settings
+        className="btn btn-sm btn-outline-secondary action-btn"
+      >
+        <i className="ion-gear-a" /> Edit Profile Settings
       </Link>
     );
   }
 
   return null;
-}
+};
 
 const FollowUserButton = props => {
   if (props.isUser) {
     return null;
   }
 
-  let classes = 'btn btn-sm action-btn';
+  let classes = "btn btn-sm action-btn";
 
   if (props.user.following) {
-    classes += ' btn-secondary';
+    classes += " btn-secondary";
   } else {
-    classes += ' btn-outline-secondary';
+    classes += " btn-outline-secondary";
   }
 
   const handleClick = event => {
     event.preventDefault();
 
     if (props.user.following) {
-      props.unfollow(props.user.username)
+      props.unfollow(props.user.username);
     } else {
-      props.follow(props.user.username)
+      props.follow(props.user.username);
     }
   };
 
   return (
-    <button
-      className={classes}
-      onClick={handleClick}>
-      <i className="ion-plus-round"></i>
+    <button className={classes} onClick={handleClick}>
+      <i className="ion-plus-round" />
       &nbsp;
-      {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
+      {props.user.following ? "Unfollow" : "Follow"} {props.user.username}
     </button>
   );
-}
+};
 
 const mapStateToProps = state => ({
   ...state.articleList,
@@ -162,17 +165,23 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: FOLLOW_USER,
-    payload: agent.Profile.follow(username) }),
+  onFollow: username =>
+    dispatch({
+      type: FOLLOW_USER,
+      payload: agent.Profile.follow(username)
+    }),
   onLoad: payload => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
   onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
-  onUnfollow: username => dispatch({
-    type: UNFOLLOW_USER,
-    payload: agent.Profile.unfollow(username)
-  }),
+  onUnfollow: username =>
+    dispatch({
+      type: UNFOLLOW_USER,
+      payload: agent.Profile.unfollow(username)
+    }),
   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);
 export { Profile, mapStateToProps }; // For Inheritance

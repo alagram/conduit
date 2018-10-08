@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ListPagination = props => {
   if (props.articlesCount <= 10) {
@@ -16,27 +16,29 @@ const ListPagination = props => {
   return (
     <nav>
       <ul className="pagination">
-        {range.map((num) => {
+        {range.map(num => {
           const isCurrent = num === props.currentPage;
 
-          const onClick = (env) => {
+          const onClick = env => {
             env.preventDefault();
             setPage(num);
           };
 
           return (
             <li
-              className={ isCurrent ? 'page-item active' : 'page-item' }
+              className={isCurrent ? "page-item active" : "page-item"}
               onClick={onClick}
-              key={num.toString()}>
-
-              <a className="page-link" href="">{num + 1}</a>
+              key={num.toString()}
+            >
+              <a className="page-link" href="">
+                {num + 1}
+              </a>
             </li>
-          )
+          );
         })}
       </ul>
     </nav>
-  )
-}
+  );
+};
 
 export default ListPagination;

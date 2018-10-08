@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
-import agent from '../../agent';
-import { connect } from 'react-redux';
-import marked from 'marked';
-import ArticleMeta from './ArticleMeta';
-import CommentContainer from './CommentContainer';
-import { ARTICLE_PAGE_LOADED, ARTICLE_PAGE_UNLOADED } from '../../constants/actionTypes';
+import React, { Component } from "react";
+import agent from "../../agent";
+import { connect } from "react-redux";
+import marked from "marked";
+import ArticleMeta from "./ArticleMeta";
+import CommentContainer from "./CommentContainer";
+import {
+  ARTICLE_PAGE_LOADED,
+  ARTICLE_PAGE_UNLOADED
+} from "../../constants/actionTypes";
 
 class Article extends Component {
   componentWillMount() {
-    this.props.onLoad(Promise.all([
-      agent.Articles.get(this.props.match.params.id),
-      agent.Comments.forArticle(this.props.match.params.id)
-    ]))
+    this.props.onLoad(
+      Promise.all([
+        agent.Articles.get(this.props.match.params.id),
+        agent.Comments.forArticle(this.props.match.params.id)
+      ])
+    );
   }
 
   componentWillUnmount() {
@@ -25,8 +30,8 @@ class Article extends Component {
 
     const { currentUser, article } = this.props;
     const markup = { __html: marked(this.props.article.body) };
-    const canModify = currentUser &&
-                      currentUser.username === article.author.username;
+    const canModify =
+      currentUser && currentUser.username === article.author.username;
 
     return (
       <div className="article-page">
@@ -35,14 +40,13 @@ class Article extends Component {
             <h1>{this.props.article.title}</h1>
 
             <ArticleMeta article={article} canModify={canModify} />
-
           </div>
         </div>
 
         <div className="container page">
           <div className="row article-content">
             <div className="col-xs-12">
-              <div dangerouslySetInnerHTML={markup}></div>
+              <div dangerouslySetInnerHTML={markup} />
 
               <ul className="tag-list">
                 {this.props.article.tagList.map(tag => (
@@ -58,13 +62,12 @@ class Article extends Component {
         <hr />
 
         <div className="row">
-
           <CommentContainer
             comments={this.props.comments || []}
             errors={this.props.commentErrors}
             slug={this.props.match.params.id}
-            currentUser={this.props.currentUser} />
-
+            currentUser={this.props.currentUser}
+          />
         </div>
       </div>
     );
@@ -77,10 +80,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload =>
-    dispatch({ type: ARTICLE_PAGE_LOADED, payload }),
-  onUnload: () =>
-    dispatch({ type: ARTICLE_PAGE_UNLOADED })
-})
+  onLoad: payload => dispatch({ type: ARTICLE_PAGE_LOADED, payload }),
+  onUnload: () => dispatch({ type: ARTICLE_PAGE_UNLOADED })
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Article);

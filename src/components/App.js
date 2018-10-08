@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
-import Header from './Header';
-import Home from './Home';
-import Login from './Login';
-import Register from './Register';
-import Settings from './Settings';
-import Article from './Article';
-import Profile from './Profile';
-import ProfileFavorites from './ProfileFavorites';
-import Editor from './Editor';
-import agent from '../agent';
-import { store } from '../store';
-import { push } from 'react-router-redux';
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
+import Header from "./Header";
+import Home from "./Home";
+import Login from "./Login";
+import Register from "./Register";
+import Settings from "./Settings";
+import Article from "./Article";
+import Profile from "./Profile";
+import ProfileFavorites from "./ProfileFavorites";
+import Editor from "./Editor";
+import agent from "../agent";
+import { store } from "../store";
+import { push } from "react-router-redux";
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem('jwt');
+    const token = window.localStorage.getItem("jwt");
     if (token) {
       agent.setToken(token);
     }
@@ -38,9 +38,10 @@ class App extends Component {
         <div>
           <Header
             appName={this.props.appName}
-            currentUser={this.props.currentUser} />
+            currentUser={this.props.currentUser}
+          />
           <Switch>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
@@ -51,13 +52,14 @@ class App extends Component {
             <Route path="/@:username" component={Profile} />
           </Switch>
         </div>
-      )
+      );
     }
     return (
       <div>
         <Header
           appName={this.props.appName}
-          currentUser={this.props.currentUser} />
+          currentUser={this.props.currentUser}
+        />
       </div>
     );
   }
@@ -71,10 +73,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token }),
-  onRedirect: () =>
-    dispatch({ type: REDIRECT })
+  onLoad: (payload, token) => dispatch({ type: APP_LOAD, payload, token }),
+  onRedirect: () => dispatch({ type: REDIRECT })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

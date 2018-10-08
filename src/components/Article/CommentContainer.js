@@ -1,8 +1,8 @@
-import React from 'react';
-import CommentInput from './CommentInput';
-import CommentList from './CommentList';
-import ListErrors from '../ListErrors';
-import { Link } from 'react-router-dom';
+import React from "react";
+import CommentInput from "./CommentInput";
+import CommentList from "./CommentList";
+import ListErrors from "../ListErrors";
+import { Link } from "react-router-dom";
 
 const CommentContainer = props => {
   if (props.currentUser) {
@@ -16,9 +16,10 @@ const CommentContainer = props => {
         <CommentList
           comments={props.comments}
           slug={props.slug}
-          currentUser={props.currentUser} />
+          currentUser={props.currentUser}
+        />
       </div>
-    )
+    );
   } else {
     return (
       <div className="col-xs-12 col-md-8 offset-md-2">
@@ -32,10 +33,11 @@ const CommentContainer = props => {
         <CommentList
           comments={props.comments}
           slug={props.slug}
-          currentUser={props.currentUser} />
+          currentUser={props.currentUser}
+        />
       </div>
-    )
+    );
   }
-}
+};
 
 export default CommentContainer;

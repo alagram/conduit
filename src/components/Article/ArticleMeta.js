@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ArticleActions from './ArticleActions';
+import React from "react";
+import { Link } from "react-router-dom";
+import ArticleActions from "./ArticleActions";
 
 const ArticleMeta = ({ article, canModify }) => {
   return (
     <div className="article-meta">
       <Link to={`@${article.author.username}`}>
-        <img src={article.author.image} alt={article.author.username}/>
+        <img src={article.author.image} alt={article.author.username} />
       </Link>
 
       <div className="info">
@@ -20,7 +20,7 @@ const ArticleMeta = ({ article, canModify }) => {
         <ArticleActions canModify={canModify} article={article} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ArticleMeta;

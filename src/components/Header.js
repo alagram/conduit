@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const LoggedOutView = ({ currentUser }) => {
   if (!currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
         <li className="nav-item">
           <Link to="/" className="nav-link">
             Home
@@ -28,13 +27,12 @@ const LoggedOutView = ({ currentUser }) => {
   }
 
   return null;
-}
+};
 
 const LoggedInView = ({ currentUser }) => {
   if (currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
         <li className="nav-item">
           <Link to="/" className="nav-link">
             Home
@@ -43,31 +41,34 @@ const LoggedInView = ({ currentUser }) => {
 
         <li className="nav-item">
           <Link to="/editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;New Post
+            <i className="ion-compose" />
+            &nbsp;New Post
           </Link>
         </li>
 
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
+            <i className="ion-gear-a" />
+            &nbsp;Settings
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link
-            to={`/@${currentUser.username}`}
-            className="nav-link">
-            <img src={currentUser.image} className="user-pic" alt={currentUser.username} />
+          <Link to={`/@${currentUser.username}`} className="nav-link">
+            <img
+              src={currentUser.image}
+              className="user-pic"
+              alt={currentUser.username}
+            />
             {currentUser.username}
           </Link>
         </li>
-
       </ul>
     );
   }
 
   return null;
-}
+};
 
 class Header extends Component {
   render() {
@@ -82,7 +83,7 @@ class Header extends Component {
           <LoggedInView currentUser={this.props.currentUser} />
         </div>
       </nav>
-    )
+    );
   }
 }
 

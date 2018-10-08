@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class ListErrors extends Component {
   render() {
@@ -7,15 +7,15 @@ class ListErrors extends Component {
     if (errors) {
       return (
         <ul className="error-messages">
-          {Object.keys(errors).map((key)=> (
+          {Object.keys(errors).map(key => (
             <li key={key}>
               {key} {errors[key].join(", ")}
             </li>
           ))}
         </ul>
-      )
+      );
     } else {
-      return null
+      return null;
     }
   }
 }
